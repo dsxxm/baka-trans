@@ -1,6 +1,0 @@
-# ninja log v7
-0	10	1784311809326460633	/home/bakaxxn/workplace/randomthing/cpp/baka-trans/cmake-build/CMakeFiles/cmake.verify_globs	6f276c6c8e01201a
-10	20	1784311809336788321	CMakeFiles/baka-translator.dir/src/ui/MainWindow.cc.o	cf0e6e4d85a8f4e7
-10	316	1784311809335480618	CMakeFiles/baka-translator.dir/src/config/Config.cc.o	cc0ca181df4dff2
-10	904	1784311809336552365	CMakeFiles/baka-translator.dir/src/main.cc.o	8577877db6f9a19f
-905	1109	1784311810230476045	baka-translator	8f88832b2b68e315
