@@ -13,8 +13,7 @@ file(GLOB_RECURSE sources CONFIGURE_DEPENDS src/*.cc)
 
 add_executable(${PROJECT_NAME} ${sources})
 target_include_directories(${PROJECT_NAME} PRIVATE
-  include/config
-  include/app
+  include
 )
 target_link_libraries(${PROJECT_NAME} PRIVATE
   PkgConfig::GTKMM
