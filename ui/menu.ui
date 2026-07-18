@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <submenu>
+      <attribute name='label' translatable='yes'>File</attribute>
+      <item>
+        <attribute name='label' translatable='yes'>FOO</attribute>
+        <attribute name='action'>app.foo</attribute>
+      </item>
+    </submenu>
+  </menu>
+</interface>

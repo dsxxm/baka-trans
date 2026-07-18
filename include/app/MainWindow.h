@@ -5,5 +5,5 @@ Main Window
 */
 #include <gtkmm.h>
 
-class MainWindow : public Gtk::Window {};
+class MainWindow : public Gtk::ApplicationWindow {};
 #endif

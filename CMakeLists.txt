@@ -12,11 +12,12 @@ pkg_check_modules(LUA REQUIRED IMPORTED_TARGET lua)
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS src/*.cc)
 
 add_executable(${PROJECT_NAME} ${sources})
-target_include_directories(${PROJECT_NAME} PRIVATE
-  include/config
-  include/app
-)
+target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE
   PkgConfig::GTKMM
   PkgConfig::LUA
+)
+
+target_compile_definitions(
+  ${PROJECT_NAME} PRIVATE PROJECT_SOURCE_DIR="${CMAKE_SOURCE_DIR}"
 )
