@@ -3,7 +3,7 @@
 /*
 Main Window
 */
-#include <gtkmm/window.h>
+#include <gtkmm.h>
 
 class MainWindow : public Gtk::Window {};
 #endif
