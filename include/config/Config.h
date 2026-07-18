@@ -18,7 +18,6 @@ private:
   bool loadConfig(LuaLoader &lua_loader);
 
 public:
-  // initialize config if path not exists then create
   Config(std::string file_path = "~/.config/baka/trans.config.lua");
   ~Config() {}
 };
