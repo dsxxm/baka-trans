@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include <string>
 
@@ -21,5 +20,3 @@ public:
   Config(std::string file_path = "~/.config/baka/trans.config.lua");
   ~Config() {}
 };
-
-#endif

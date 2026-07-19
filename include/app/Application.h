@@ -1,3 +1,8 @@
+#pragma once
+
+/*
+ * inherit from Gtk::Application to implete menu
+ */
 #include <gtkmm.h>
 
 class Application : public Gtk::Application {
