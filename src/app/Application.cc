@@ -1,5 +1,6 @@
 #include "app/Application.h"
 #include "app/MainWindow.h"
+#include "config/Config.h"
 #include <iostream>
 
 // private
@@ -7,7 +8,7 @@
 void Application::foo() { std::cout << "foo" << std::endl; }
 
 void Application::create_window() {
-  auto window = Gtk::make_managed<MainWindow>();
+  auto window = Gtk::make_managed<MainWindow>("baka-trans", 1280, 720, config);
   add_window(*window);
   window->set_show_menubar();
   window->present();
@@ -15,13 +16,16 @@ void Application::create_window() {
 
 // protected
 
-Application::Application() {}
+Application::Application()
+    : config("/home/bakaxxn/workplace/randomthing/cpp/baka-trans/config/"
+             "config.lua") {}
 
 void Application::on_startup() {
   Gtk::Application::on_startup();
 
   add_action("foo", [this]() { this->foo(); });
 
+  Glib::RefPtr<Gtk::Builder> builder;
   try {
     builder = Gtk::Builder::create_from_file(PROJECT_SOURCE_DIR "/ui/menu.ui");
   } catch (const Glib::Error &error) {

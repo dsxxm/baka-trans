@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<interface>
+  <object class="GtkButton" id="translate_button">
+    <property name="label">translate</property>
+  </object>
+
+  <object class="GtkComboBoxText" id="provider">
+    <items>
+      <item id="google">Google</item>
+      <item id="bing">Bing</item>
+      <item id="baidu">Baidu</item>
+    </items>
+  </object>
+
+  <object class="GtkComboBoxText" id="source_lang">
+    <items>
+      <item id="auto">Auto</item>
+      <item id="zh">Chinese</item>
+      <item id="en">English</item>
+      <item id="ja">Japanese</item>
+    </items>
+  </object>
+
+  <object class="GtkLabel" id="separator">
+    <property name="label">></property>
+  </object>
+
+  <object class="GtkComboBoxText" id="target_lang">
+    <items>
+      <item id="zh">Chinese</item>
+      <item id="en">English</item>
+      <item id="ja">Japanese</item>
+    </items>
+  </object>
+</interface>

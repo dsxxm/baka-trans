@@ -1,10 +1,16 @@
+#pragma once
+
+/*
+ * inherit from Gtk::Application to implete menu
+ */
+#include "config/Config.h"
 #include <gtkmm.h>
 
 class Application : public Gtk::Application {
 private:
   void foo();
   void create_window();
-  Glib::RefPtr<Gtk::Builder> builder;
+  Config config;
 
 protected:
   Application();

@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include <string>
 
@@ -10,7 +9,7 @@ class Config {
 private:
   class LuaLoader;
 
-  const std::string file_path;
+  std::string file_path;
   std::string api_key;
 
   static std::string expandUserPath(const std::string &file_path);
@@ -18,8 +17,6 @@ private:
   bool loadConfig(LuaLoader &lua_loader);
 
 public:
-  Config(std::string file_path = "~/.config/baka/trans.config.lua");
+  Config(std::string file_path = "~/.config/baka/trans/config.lua");
   ~Config() {}
 };
-
-#endif
