@@ -8,7 +8,8 @@
 void Application::foo() { std::cout << "foo" << std::endl; }
 
 void Application::create_window() {
-  auto window = Gtk::make_managed<MainWindow>("baka-trans", 1280, 720, config);
+  auto window = Gtk::make_managed<MainWindow>("baka-trans", config.window_width,
+                                              config.window_height, config);
   add_window(*window);
   window->set_show_menubar();
   window->present();
@@ -16,9 +17,7 @@ void Application::create_window() {
 
 // protected
 
-Application::Application()
-    : config("/home/bakaxxn/workplace/randomthing/cpp/baka-trans/config/"
-             "config.lua") {}
+Application::Application() : config(PROJECT_SOURCE_DIR "/config/config.lua") {}
 
 void Application::on_startup() {
   Gtk::Application::on_startup();
