@@ -18,7 +18,7 @@
       <item id="auto">Auto</item>
       <item id="zh">Chinese</item>
       <item id="en">English</item>
-      <item id="ja">Japanese</item>
+      <item id="jp">Japanese</item>
     </items>
   </object>
 
@@ -30,7 +30,7 @@
     <items>
       <item id="zh">Chinese</item>
       <item id="en">English</item>
-      <item id="ja">Japanese</item>
+      <item id="jp">Japanese</item>
     </items>
   </object>
 </interface>

@@ -8,6 +8,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTKMM REQUIRED IMPORTED_TARGET gtkmm-4.0)
 pkg_check_modules(LUA REQUIRED IMPORTED_TARGET lua)
+pkg_check_modules(CURL REQUIRED IMPORTED_TARGET libcurl)
+
+find_package(OpenSSL REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS src/*.cc)
 
@@ -16,6 +20,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE
   PkgConfig::GTKMM
   PkgConfig::LUA
+  PkgConfig::CURL
+  OpenSSL::Crypto
+  nlohmann_json::nlohmann_json
 )
 
 target_compile_definitions(

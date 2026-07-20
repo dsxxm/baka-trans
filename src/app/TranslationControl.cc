@@ -36,3 +36,11 @@ TranslationControl::TranslationControl() {
 Glib::SignalProxy<void()> TranslationControl::signal_translate_request() {
   return translate_button->signal_clicked();
 }
+
+std::string TranslationControl::get_provider() {
+  return provider->get_active_id();
+}
+
+std::string TranslationControl::get_source() { return source->get_active_id(); }
+
+std::string TranslationControl::get_target() { return target->get_active_id(); }

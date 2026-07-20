@@ -72,14 +72,41 @@ bool Config::loadConfig(LuaLoader &lua_loader) {
     return false;
   }
 
-  lua_getfield(lua_loader.lua_state, -1, "api_key");
-  if (!lua_isstring(lua_loader.lua_state, -1)) {
-    std::cerr << "配置项 api_key 必须是字符串" << '\n';
+  lua_getfield(lua_loader.lua_state, -1, "window_height");
+  if (!lua_isinteger(lua_loader.lua_state, -1)) {
+    std::cerr << "配置项 window_height 必须是INT" << '\n';
     lua_pop(lua_loader.lua_state, 1);
     return false;
   }
-
-  this->api_key = lua_tostring(lua_loader.lua_state, -1);
+  this->window_height = lua_tointeger(lua_loader.lua_state, -1);
   lua_pop(lua_loader.lua_state, 1);
+
+  lua_getfield(lua_loader.lua_state, -1, "window_width");
+  if (!lua_isinteger(lua_loader.lua_state, -1)) {
+    std::cerr << "配置项 window_width 必须是INT" << '\n';
+    lua_pop(lua_loader.lua_state, 1);
+    return false;
+  }
+  this->window_width = lua_tointeger(lua_loader.lua_state, -1);
+  lua_pop(lua_loader.lua_state, 1);
+
+  lua_getfield(lua_loader.lua_state, -1, "baidu_appid");
+  if (!lua_isstring(lua_loader.lua_state, -1)) {
+    std::cerr << "配置项 baidu_appid 必须是字符串" << '\n';
+    lua_pop(lua_loader.lua_state, 1);
+    return false;
+  }
+  this->baidu_app_id = lua_tostring(lua_loader.lua_state, -1);
+  lua_pop(lua_loader.lua_state, 1);
+
+  lua_getfield(lua_loader.lua_state, -1, "baidu_secret_key");
+  if (!lua_isstring(lua_loader.lua_state, -1)) {
+    std::cerr << "配置项 baidu_secret_key 必须是字符串" << '\n';
+    lua_pop(lua_loader.lua_state, 1);
+    return false;
+  }
+  this->baidu_secret_key = lua_tostring(lua_loader.lua_state, -1);
+  lua_pop(lua_loader.lua_state, 1);
+
   return true;
 }
