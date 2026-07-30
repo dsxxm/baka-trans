@@ -9,6 +9,7 @@
 #include <openssl/evp.h>
 #include <random>
 #include <sstream>
+#include <string>
 
 // private
 
@@ -19,6 +20,9 @@ void TranslationView::translate() {
   output_panel.get_buffer()->set_text(response);
 }
 
+// ai声明
+// 从百度官网复制的c语言版的translate函数然后用ai改造成c++版本
+// 然后手动引入了nlohmann json解析和获取输入
 std::string TranslationView::translate_baidu() {
   const std::string appid = config.baidu_app_id;
   const std::string secret_key = config.baidu_secret_key;
@@ -73,9 +77,15 @@ std::string TranslationView::translate_baidu() {
     return "curl_easy_perform() failed";
   }
   std::string trans_result;
+  // 防止百度api网络错误或者变更json结构
   try {
     nlohmann::json response = nlohmann::json::parse(response_str);
-    trans_result = response["trans_result"][0]["dst"];
+    int n = response["trans_result"].size();
+    for (int i = 0; i < n - 1; i++) {
+      trans_result += response["trans_result"][i]["dst"].get<std::string>();
+      trans_result += '\n';
+    }
+    trans_result += response["trans_result"][n - 1]["dst"].get<std::string>();
   } catch (const nlohmann::json::exception &error) {
     std::cerr << "json parse exception " << error.what();
     return "json parse error";
@@ -90,6 +100,8 @@ std::string TranslationView::translate_baidu() {
 TranslationView::TranslationView(Config &config) : config(config) {
   // settings
   set_orientation(Gtk::Orientation::VERTICAL);
+  input_panel.set_vexpand(true);
+  output_panel.set_vexpand(true);
 
   // append items
   append(input_panel);
