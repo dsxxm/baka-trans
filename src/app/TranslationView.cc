@@ -114,6 +114,8 @@ TranslationView::TranslationView(Config &config) : config(config) {
 }
 
 void TranslationView::setInputAndTranslate(Glib::ustring text) {
-  input_panel.get_buffer()->set_text(text);
-  translate();
+  if (input_panel.get_buffer()->get_text() != text) {
+    input_panel.get_buffer()->set_text(text);
+    translate();
+  }
 }
