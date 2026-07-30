@@ -11,7 +11,6 @@ private:
 
   std::string file_path;
 
-  static std::string expandUserPath(const std::string &file_path);
   void createFileIfNotExists(const std::string &file_path);
   bool loadConfig(LuaLoader &lua_loader);
 
