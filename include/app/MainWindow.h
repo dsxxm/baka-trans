@@ -14,7 +14,12 @@ private:
   const int height;
   Config &config;
 
+  Glib::RefPtr<Gtk::EventControllerFocus> foucus_controller;
+
   TranslationView translation_view;
+
+  void readClipboard();
+  void onClipboardReceived(const Glib::RefPtr<Gio::AsyncResult> &result);
 
 protected:
 public:
