@@ -20,4 +20,5 @@ private:
 protected:
 public:
   TranslationView(Config &);
+  void setInputAndTranslate(Glib::ustring text);
 };

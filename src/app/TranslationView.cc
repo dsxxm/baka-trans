@@ -88,8 +88,10 @@ std::string TranslationView::translate_baidu() {
 // public
 
 TranslationView::TranslationView(Config &config) : config(config) {
-  // append items
+  // settings
   set_orientation(Gtk::Orientation::VERTICAL);
+
+  // append items
   append(input_panel);
   append(translation_control);
   append(output_panel);
@@ -97,4 +99,9 @@ TranslationView::TranslationView(Config &config) : config(config) {
   // signals
   translation_control.signal_translate_request().connect(
       [this]() { this->translate(); });
+}
+
+void TranslationView::setInputAndTranslate(Glib::ustring text) {
+  input_panel.get_buffer()->set_text(text);
+  translate();
 }
