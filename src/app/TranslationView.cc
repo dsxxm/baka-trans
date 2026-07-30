@@ -114,6 +114,8 @@ TranslationView::TranslationView(Config &config) : config(config) {
 }
 
 void TranslationView::setInputAndTranslate(Glib::ustring text) {
+  text.erase(0, text.find_first_not_of("\n"));
+  text.erase(text.find_last_not_of("\n") + 1);
   if (input_panel.get_buffer()->get_text() != text) {
     input_panel.get_buffer()->set_text(text);
     translate();
