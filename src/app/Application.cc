@@ -17,7 +17,7 @@ void Application::create_window() {
 
 // protected
 
-Application::Application() : config(PROJECT_SOURCE_DIR "/config/config.lua") {}
+Application::Application() : config("~/.config/baka-trans/config.lua") {}
 
 void Application::on_startup() {
   Gtk::Application::on_startup();

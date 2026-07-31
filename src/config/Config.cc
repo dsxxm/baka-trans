@@ -27,26 +27,18 @@ public:
   }
 };
 
-Config::Config(std::string file_path) : file_path(expandUserPath(file_path)) {
+Config::Config(std::string file_path) : file_path(file_path) {
+  if (file_path[0] == '~') {
+    const char *home = std::getenv("HOME");
+    this->file_path.erase(0, 1);
+    this->file_path = home + this->file_path;
+  }
   this->createFileIfNotExists(this->file_path);
   LuaLoader lua_loader;
   if (!lua_loader.loadLua(this->file_path)) {
     return;
   }
   loadConfig(lua_loader);
-}
-
-std::string Config::expandUserPath(const std::string &file_path) {
-  if (file_path.size() < 2 || file_path[0] != '~' || file_path[1] != '/') {
-    return file_path;
-  }
-
-  const char *home = std::getenv("HOME");
-  if (home == nullptr) {
-    return file_path;
-  }
-
-  return std::string(home) + file_path.substr(1);
 }
 
 void Config::createFileIfNotExists(const std::string &file_path) {
