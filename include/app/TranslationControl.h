@@ -13,8 +13,8 @@ private:
 protected:
 public:
   TranslationControl();
-  Glib::SignalProxy<void()> signal_translate_request();
-  std::string get_provider();
-  std::string get_source();
-  std::string get_target();
+  Glib::SignalProxy<void()> signalTranslateRequest();
+  std::string getProvider();
+  std::string getSource();
+  std::string getTarget();
 };

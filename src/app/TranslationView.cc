@@ -1,96 +1,31 @@
 #include "app/TranslationView.h"
-#include <array>
+#include "util/CurlHandle.h"
+#include "util/TranslateUtils.h"
 #include <curl/curl.h>
-#include <iomanip>
-#include <iostream>
-#include <memory>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
 #include <openssl/evp.h>
-#include <random>
-#include <sstream>
 #include <string>
 
 // private
 
 void TranslationView::translate() {
-  std::string provider = translation_control.get_provider();
-  // TODO: add a map
-  const std::string response = translate_baidu();
-  output_panel.get_buffer()->set_text(response);
-}
+  std::string provider = translation_control.getProvider();
 
-// ai声明
-// 从百度官网复制的c语言版的translate函数然后用ai改造成c++版本
-// 然后手动引入了nlohmann json解析和获取输入
-std::string TranslationView::translate_baidu() {
-  const std::string appid = config.baidu_app_id;
-  const std::string secret_key = config.baidu_secret_key;
-  const std::string salt = std::to_string(std::random_device{}());
-  const std::string query = input_panel.get_buffer()->get_text();
-  const std::string sign = appid + query + salt + secret_key;
+  CurlHandle &curl_handle = CurlHandle::getInstance();
+  TranslateUtils &translate_utils =
+      TranslateUtils::getInstance(curl_handle, config);
 
-  std::array<unsigned char, EVP_MAX_MD_SIZE> md;
-  unsigned int md_size = 0;
-  EVP_Digest(sign.data(), sign.size(), md.data(), &md_size, EVP_md5(), nullptr);
+  auto it = translate_utils.solutions.find(provider);
+  if (it != translate_utils.solutions.end()) {
+    const std::string source = translation_control.getSource();
+    const std::string target = translation_control.getTarget();
+    const std::string query = input_panel.getBuffer()->get_text();
 
-  std::ostringstream md5;
-  md5 << std::hex << std::setfill('0');
-  for (unsigned int i = 0; i < md_size; ++i)
-    md5 << std::setw(2) << static_cast<int>(md[i]);
-
-  std::unique_ptr<CURL, decltype(&curl_easy_cleanup)> curl(curl_easy_init(),
-                                                           curl_easy_cleanup);
-  if (!curl)
-    return "create curl failed";
-
-  const auto escape = [&](const std::string &text) {
-    char *escaped = curl_easy_escape(curl.get(), text.c_str(), text.size());
-    std::string result = escaped ? escaped : "";
-    curl_free(escaped);
-    return result;
-  };
-
-  const std::string source = translation_control.get_source();
-  const std::string target = translation_control.get_target();
-  const std::string url =
-      "http://api.fanyi.baidu.com/api/trans/vip/translate?appid=" + appid +
-      "&q=" + escape(query) + "&from=" + source + "&to=" + target +
-      "&salt=" + salt + "&sign=" + md5.str();
-
-  curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
-
-  std::string response_str;
-  curl_easy_setopt(
-      curl.get(), CURLOPT_WRITEFUNCTION,
-      +[](char *ptr, size_t size, size_t nmemb, void *userdata) {
-        auto *response = static_cast<std::string *>(userdata);
-        response->append(ptr, size * nmemb);
-        return size * nmemb;
-      });
-  curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &response_str);
-
-  const CURLcode result = curl_easy_perform(curl.get());
-  if (result != CURLE_OK) {
-    std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(result)
-              << '\n';
-    return "curl_easy_perform() failed";
+    std::string response =
+        (translate_utils.*(it->second))(source, target, query);
+    output_panel.getBuffer()->set_text(response);
   }
-  std::string trans_result;
-  // 防止百度api网络错误或者变更json结构
-  try {
-    nlohmann::json response = nlohmann::json::parse(response_str);
-    int n = response["trans_result"].size();
-    for (int i = 0; i < n - 1; i++) {
-      trans_result += response["trans_result"][i]["dst"].get<std::string>();
-      trans_result += '\n';
-    }
-    trans_result += response["trans_result"][n - 1]["dst"].get<std::string>();
-  } catch (const nlohmann::json::exception &error) {
-    std::cerr << "json parse exception " << error.what();
-    return "json parse error";
-  }
-  return trans_result;
 }
 
 // protected
@@ -109,15 +44,15 @@ TranslationView::TranslationView(Config &config) : config(config) {
   append(output_panel);
 
   // signals
-  translation_control.signal_translate_request().connect(
+  translation_control.signalTranslateRequest().connect(
       [this]() { this->translate(); });
 }
 
 void TranslationView::setInputAndTranslate(Glib::ustring text) {
   text.erase(0, text.find_first_not_of("\n"));
   text.erase(text.find_last_not_of("\n") + 1);
-  if (input_panel.get_buffer()->get_text() != text) {
-    input_panel.get_buffer()->set_text(text);
+  if (input_panel.getBuffer()->get_text() != text) {
+    input_panel.getBuffer()->set_text(text);
     translate();
   }
 }

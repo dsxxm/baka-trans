@@ -15,7 +15,6 @@ private:
   OutputPanel output_panel;
 
   void translate();
-  std::string translate_baidu();
 
 protected:
 public:

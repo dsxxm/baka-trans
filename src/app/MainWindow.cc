@@ -2,14 +2,14 @@
 
 // private
 
-void MainWindow::readClipboard() {
+void MainWindow::read_clipboard() {
   get_clipboard()->read_text_async(
       [this](const Glib::RefPtr<Gio::AsyncResult> &result) {
-        this->onClipboardReceived(result);
+        this->on_clipboard_received(result);
       });
 }
 
-void MainWindow::onClipboardReceived(
+void MainWindow::on_clipboard_received(
     const Glib::RefPtr<Gio::AsyncResult> &result) {
   try {
     Glib::ustring text = get_clipboard()->read_text_finish(result);
@@ -39,5 +39,5 @@ MainWindow::MainWindow(const std::string title, int width, int height,
 
   // signals
   foucus_controller->signal_enter().connect(
-      [this]() { this->readClipboard(); });
+      [this]() { this->read_clipboard(); });
 }
