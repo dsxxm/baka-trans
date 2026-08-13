@@ -1,6 +1,12 @@
-#include <string>
+#pragma once
 
-namespace OCRUtils {
-enum class OCRSource { REMOTE, LOCAL };
-std::string recognize(OCRSource source);
-} // namespace OCRUtils
+class OCRUtils {
+private:
+  OCRUtils();
+  ~OCRUtils();
+  OCRUtils(const OCRUtils &) = delete;
+  OCRUtils &operator=(const OCRUtils &) = delete;
+
+public:
+  static OCRUtils &getInstance();
+};
