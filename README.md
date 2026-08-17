@@ -20,7 +20,7 @@ return {
 ## 未来计划加入
 
 - 更多翻译服务商兼容
-- ocr图片翻译
+- ocr图片翻译 ✅  TOOD:加入ocr根据provirder切换识别语言类型 目前配置为只支持英文ocr(只需要更改tesseract init配置即可更换)
 - 语音翻译
 - 界面优化,更多的lua配置,通过菜单栏配置程序
 
