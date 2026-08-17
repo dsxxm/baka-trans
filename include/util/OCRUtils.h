@@ -1,5 +1,8 @@
 #pragma once
 
+#include <leptonica/allheaders.h>
+#include <string>
+
 class OCRUtils {
 private:
   OCRUtils();
@@ -9,4 +12,7 @@ private:
 
 public:
   static OCRUtils &getInstance();
+
+  std::string recognize(std::string);
+  std::string recognize(Pix *);
 };
