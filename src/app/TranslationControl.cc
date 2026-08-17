@@ -33,14 +33,14 @@ TranslationControl::TranslationControl() {
   append(*translate_button);
 }
 
-Glib::SignalProxy<void()> TranslationControl::signal_translate_request() {
+Glib::SignalProxy<void()> TranslationControl::signalTranslateRequest() {
   return translate_button->signal_clicked();
 }
 
-std::string TranslationControl::get_provider() {
+std::string TranslationControl::getProvider() {
   return provider->get_active_id();
 }
 
-std::string TranslationControl::get_source() { return source->get_active_id(); }
+std::string TranslationControl::getSource() { return source->get_active_id(); }
 
-std::string TranslationControl::get_target() { return target->get_active_id(); }
+std::string TranslationControl::getTarget() { return target->get_active_id(); }

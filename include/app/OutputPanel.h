@@ -10,5 +10,5 @@ private:
 protected:
 public:
   OutputPanel();
-  Glib::RefPtr<Gtk::TextBuffer> get_buffer() { return buffer; }
+  Glib::RefPtr<Gtk::TextBuffer> getBuffer() { return buffer; }
 };

@@ -18,8 +18,9 @@ private:
 
   TranslationView translation_view;
 
-  void readClipboard();
-  void onClipboardReceived(const Glib::RefPtr<Gio::AsyncResult> &result);
+  void read_clipboard();
+  void on_clipboard_received_text(const Glib::RefPtr<Gio::AsyncResult> &result);
+  void on_clipboard_received_img(const Glib::RefPtr<Gio::AsyncResult> &result);
 
 protected:
 public:
