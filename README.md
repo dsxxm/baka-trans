@@ -3,7 +3,7 @@
 ## 目前功能
 
 - 基础翻译界面
-- 通过lua脚本配置程序 通过在项目根目录创建config/config.lua 来配置程序 可支持配置内容如下
+- 通过lua脚本配置程序 通过~/.config/baka-trans/config.lua 来配置程序 可支持配置内容如下
 
 ``` lua
 return {
