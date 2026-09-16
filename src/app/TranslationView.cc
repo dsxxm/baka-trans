@@ -56,3 +56,7 @@ void TranslationView::setInputAndTranslate(Glib::ustring text) {
     translate();
   }
 }
+
+std::string TranslationView::getSourceLanguage() {
+  return translation_control.getSource();
+}

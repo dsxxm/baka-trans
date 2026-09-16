@@ -13,6 +13,6 @@ private:
 public:
   static OCRUtils &getInstance();
 
-  std::string recognize(std::string);
-  std::string recognize(Pix *);
+  std::string recognize(const std::string &, const std::string &);
+  std::string recognize(Pix *, const std::string &);
 };

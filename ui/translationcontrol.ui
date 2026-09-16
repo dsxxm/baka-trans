@@ -19,6 +19,7 @@
       <item id="zh">Chinese</item>
       <item id="en">English</item>
       <item id="jp">Japanese</item>
+			<item id="de">Deutsch</item>
     </items>
   </object>
 
@@ -31,6 +32,7 @@
       <item id="zh">Chinese</item>
       <item id="en">English</item>
       <item id="jp">Japanese</item>
+			<item id="de">Deutsch</item>
     </items>
   </object>
 </interface>

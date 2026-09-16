@@ -63,7 +63,8 @@ void MainWindow::on_clipboard_received_img(
       }
     }
 
-    Glib::ustring ocr_result = OCRUtils::getInstance().recognize(pix);
+    Glib::ustring ocr_result = OCRUtils::getInstance().recognize(
+        pix, translation_view.getSourceLanguage());
     pixDestroy(&pix);
 
     translation_view.setInputAndTranslate(ocr_result);
